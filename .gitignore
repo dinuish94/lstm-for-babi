@@ -1,0 +1,8 @@
+*.ipynb
+.ipynb_checkpoints
+.*swp
+*.npy
+*.pkl
+__pycache__
+ckpt/
+tasks_1-20_v1-2/
