@@ -259,6 +259,7 @@ if __name__ == '__main__':
         train_set = utils.rand_batch_gen(X, Y, batch_size=BATCH_SIZE)
         #
         # start training
+        train_set = np.array(train_set)
         model.train(train_set)
     elif args['generate']:
         # call generate method
