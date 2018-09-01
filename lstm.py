@@ -7,7 +7,7 @@ import random
 import argparse
 import sys
 
-BATCH_SIZE = 256
+BATCH_SIZE = 32
 
 
 class LSTM_rnn():
@@ -126,6 +126,7 @@ class LSTM_rnn():
                 for i in range(epochs):
                     for j in range(100):
                         xs, ys = train_set.__next__()
+                        print(xs,ys)
                         batch_size = xs.shape[0]
                         _, train_loss_ = sess.run([self.train_op, self.loss], feed_dict={
                             self.xs_: xs,
@@ -232,8 +233,8 @@ if __name__ == '__main__':
     x, xq, y = utils.vectorize_stories(train, word_idx, story_maxlen, query_maxlen)
     tx, txq, ty = utils.vectorize_stories(test, word_idx, story_maxlen, query_maxlen)
 
-    print(x)
-    print(y)
+    print(x[0])
+    print(y[0])
 
 #
 # fetch data
@@ -242,9 +243,9 @@ if __name__ == '__main__':
     idx2w = vocab
     w2idx = word_idx
     print("X")
-    print(X)
+    print(X[0])
     print("Y")
-    print(Y)
+    print(Y[0])
     print("t")
     print(w2idx)
     print("Index to word2vec")
@@ -256,10 +257,15 @@ if __name__ == '__main__':
     # to train or to generate?
     if args['train']:
         # get train set
-        train_set = utils.rand_batch_gen(X, Y, batch_size=BATCH_SIZE)
+        train_set = utils.rand_batch_gen(x,xq,y ,batch_size=BATCH_SIZE)
+        my_array = np.array(list(train_set))
+        print(my_array)
+        # for i in train_set:
+        #     print(i)
+        #     break
         #
         # start training
-        model.train(train_set)
+        model.train(my_array)
     elif args['generate']:
         # call generate method
         text = model.generate(idx2w, w2idx,

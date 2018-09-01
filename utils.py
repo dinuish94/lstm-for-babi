@@ -3,7 +3,7 @@ from __future__ import print_function
 from random import sample
 import numpy as np
 
-import configparser
+import ConfigParser
 import os
 from functools import reduce
 import re
@@ -17,11 +17,10 @@ from keras.models import Model
 from keras.preprocessing.sequence import pad_sequences
 
 
-def rand_batch_gen(x, y, batch_size):
+def rand_batch_gen(x,xq,y, batch_size):
     while True:
         sample_idx = sample(list(np.arange(len(x))), batch_size)
-        yield x[sample_idx], y[sample_idx]
-
+        yield [x[sample_idx],xq[sample_idx]], y[sample_idx]
 
 def get_config(filename):
     parser = configparser.ConfigParser()
