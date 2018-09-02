@@ -3,7 +3,7 @@ from __future__ import print_function
 from random import sample
 import numpy as np
 
-import ConfigParser
+import configparser
 import os
 from functools import reduce
 import re
@@ -105,5 +105,9 @@ def vectorize_stories(data, word_idx, story_maxlen, query_maxlen):
         xqs.append(xq)
         ys.append(y)
     return pad_sequences(xs, maxlen=story_maxlen), pad_sequences(xqs, maxlen=query_maxlen), np.array(ys)
+
+def get_train_data(x, xq, y, batch_size):
+    train_data = rand_batch_gen(x, xq, y,batch_size=batch_size)
+    return np.array(list(train_data))
 
 

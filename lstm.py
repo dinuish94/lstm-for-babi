@@ -253,19 +253,18 @@ if __name__ == '__main__':
     # seqlen = X.shape[0]
     #
     # create the model
-    model = LSTM_rnn(state_size=512, num_classes=len(idx2w))
+    model = LSTM_rnn(state_size=15, num_classes=len(idx2w))
     # to train or to generate?
     if args['train']:
         # get train set
-        train_set = utils.rand_batch_gen(x,xq,y ,batch_size=BATCH_SIZE)
-        my_array = np.array(list(train_set))
-        print(my_array)
+        train_set = utils.get_train_data(x,xq,y ,batch_size=BATCH_SIZE)
+        print(train_set)
         # for i in train_set:
         #     print(i)
         #     break
         #
         # start training
-        model.train(my_array)
+        model.train(train_set)
     elif args['generate']:
         # call generate method
         text = model.generate(idx2w, w2idx,
